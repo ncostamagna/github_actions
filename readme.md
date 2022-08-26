@@ -9,7 +9,7 @@
 Las github actions son free en los repos publicos
 
 
-## Ejecucion de Actions
+# Ejecucion de Workflow
 
 ```yaml
 name: Shell Commands # Name
@@ -63,7 +63,7 @@ el shell que definamos es donde corrara nuestro run
         shell: bash  # podemos usar el bash de ubuntu, por defecto en windows es powershell
 ```
 
-## Actions
+# Actions
 Para definir un action usamos **uses**, en este caso estamos usando la action del repo
 https://github.com/actions/hello-world-javascript-action
 <br />
@@ -85,3 +85,88 @@ jobs:
 ```
 
 Por defecto github no clona el repositorio en el directorio donde ejecutamos nuestros run, lo que podemos hacer es clonarlo directamente nosotros
+
+
+## Checkout
+Nos trae el proyecto
+
+```yaml
+  runs-on: ubuntu-latest
+    steps:
+      - name: List Files # Sin el proyecto
+        run: |
+          pwd
+          ls -a 
+      - name: Checkout 
+        uses: actions/checkout@v1 # se autentificara en nuestro repositorio y traera el proyecto
+      - name: List Files After Checkout # Con el proyecto
+        run: |
+          pwd
+          ls -a
+```
+
+https://github.com/actions/checkout#usage
+
+# Triggering
+
+## Pull request
+
+Cuando un pull request esta en un determinado estado
+```yaml
+on: 
+  pull_request:
+    types: [closed, assigned, opened, reopened]
+```
+
+## Schedule
+
+Lo ejecutamos como schedule, como si fuera un crontab
+```yaml
+on: 
+  schedule:
+    - cron: "0/5 * * * *" # Lo ejecuto cada 5 minutos
+    - cron: "0/6 * * * *" # Lo ejecuto cada 6 minutos
+```
+
+## Manual
+Lo ejecutamos de forma manual con un dispatch, le pegamos a
+https://api.github.com/repos/ncostamagna/github_actions/dispatches
+
+<br />
+Para la autorizacion podemos ver la documentacion https://docs.github.com/en/rest/repos/repos#create-a-repository-dispatch-event debemos genrar un token autorizando el repo
+<br />
+
+Mandamos en el request, podemos mandar informacion adicional con el field **client_payload**, no es requerido
+
+```json
+{
+  "event_type": "build",
+  "client_payload":{
+    ...
+  }
+}
+
+```
+
+```yaml
+repository_dispatch:
+    types: [build] 
+```
+
+## Branches, Tags & Paths
+
+```yaml
+  push:
+    branches: # Filtramos por rama 
+      - master # rama master
+      - "feature/*" # matches featur/featA, feature/featB, doesn't match feature/feat/a
+      - "feature/**" # matches featur/featA, feature/featB & feature/feat/a
+      - "!feature/featc" # ignore feature/featc de los anteriores
+    tags: 
+      - v1.* # Siempre que el tag comience por v1.*
+    paths: 
+      - "**.js" # siempre que machea algun archivo js en el repositorio, corre el wf
+      - "!filename.js"
+    paths-ignore:
+      - 'doc/**' # Lo Ignora
+```
