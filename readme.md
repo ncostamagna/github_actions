@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Simple JS Action
-        id: greet 
+        id: greet # definimos un id para poder usarlo en otro stap
         uses: actions/hello-world-javascript-action@v1 # siempre conviene usar una version
         with: 
           who-to-greet: Nahuel
@@ -83,3 +83,5 @@ jobs:
         run: echo "${{ steps.greet.outputs.time }}"
 
 ```
+
+Por defecto github no clona el repositorio en el directorio donde ejecutamos nuestros run, lo que podemos hacer es clonarlo directamente nosotros

@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Simple JS Action
-        id: greet 
+        id: greet  # definimos un id para poder usarlo en otro stap
         uses: actions/hello-world-javascript-action@v1 # Usamos un action -> https://github.com/actions/hello-world-javascript-action
         with: 
           who-to-greet: Nahuel # que le pasamos, lo tenemos definido en el repo
