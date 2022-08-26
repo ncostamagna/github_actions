@@ -9,7 +9,7 @@
 Las github actions son free en los repos publicos
 
 
-## Ejemplo basico
+## Ejecucion de Actions
 
 ```yaml
 name: Shell Commands # Name
@@ -32,4 +32,54 @@ jobs:
           print
           (platform.processor())
         shell: python
+```
+
+PAra tener mas detalle podemos configurar las variables de entorno 
+```sh
+ACTIONS_RUNNER_DEBUG=true
+ACTIONS_RUNNER_DEBUG=true
+```
+https://docs.github.com/es/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging
+
+## Shell
+Podemos ejecutar algunos shell: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsshell
+<br />
+el shell que definamos es donde corrara nuestro run
+
+```yml
+...
+      - name: python Command 
+        run: |
+          import platform 
+          print
+          (platform.processor())
+        shell: python # podemos usar el bash de python
+  run-windwos-commands:
+    runs-on: windows-latest
+    needs: ["run-shell-command"] # primero se ejecuta run-shell-command, luego este
+    steps:
+      - name: Directory Bash 
+        run: pwd 
+        shell: bash  # podemos usar el bash de ubuntu, por defecto en windows es powershell
+```
+
+## Actions
+Para definir un action usamos **uses**, en este caso estamos usando la action del repo
+https://github.com/actions/hello-world-javascript-action
+<br />
+
+En el repo podemos ver los inputs (with) y los outputs
+```yaml
+jobs: 
+  run-github-actions: 
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Simple JS Action
+        id: greet 
+        uses: actions/hello-world-javascript-action@v1 # siempre conviene usar una version
+        with: 
+          who-to-greet: Nahuel
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+
 ```
