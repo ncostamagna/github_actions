@@ -196,3 +196,10 @@ jobs:
 ## Environments por defecto
 
 Tenemos variables por defecto como: HOME, GITHUB_WORKFLOW, GITHUB_ACTION, GITHUB_ACTIONS, GITHUB_ACTOR & GITHUB_REPOSITORY, GITHUB_EVENT_NAME, GITHUB_WORKSPACE, GITHUB_SHA & GITHUB_REF
+
+
+## Secrets
+Para crear variables secretas vamos a: 
+- **Settings > Environments > New environment > Add secret** 
+<br />
+Creamos la variable que necesitamos
