@@ -202,4 +202,4 @@ Tenemos variables por defecto como: HOME, GITHUB_WORKFLOW, GITHUB_ACTION, GITHUB
 Para crear variables secretas vamos a: 
 - **Settings > Environments > New environment > Add secret** 
 <br />
-Creamos la variable que necesitamos
+Creamos los secrets que necesitamos, para pasar contraseñas y datos sensibles
