@@ -170,3 +170,29 @@ repository_dispatch:
     paths-ignore:
       - 'doc/**' # Lo Ignora
 ```
+
+# Enrivonments
+
+Definimos variables 
+
+```yml
+name: ENV Variables 
+on: push 
+env: 
+  WF_ENV: Available to all jobs 
+
+```
+
+Definomos en los jobs
+
+```yml
+jobs: 
+  log-env:
+    runs-on: ubuntu-latest
+    env:
+      JOB_ENV: Available to all steps in log-env jobs
+```
+
+## Environments por defecto
+
+Tenemos variables por defecto como: HOME, GITHUB_WORKFLOW, GITHUB_ACTION, GITHUB_ACTIONS, GITHUB_ACTOR & GITHUB_REPOSITORY, GITHUB_EVENT_NAME, GITHUB_WORKSPACE, GITHUB_SHA & GITHUB_REF
