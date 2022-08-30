@@ -14,12 +14,9 @@ jobs:
       - name: SHIT
         run: docker ps 
       - name: Post a user
-        run: 'curl -X POST http://localhost:3000/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
+        run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
       - name: Get Users
-        run: curl http://localhost:3000/api/users
-      - name: puta madre
-        if: always()
-        run: pm2 logs --nostream 
+        run: curl http://localhost:3001/api/users
   local-node:
     runs-on: ubuntu-latest
     steps:
