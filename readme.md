@@ -247,3 +247,24 @@ steps:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 ```
+
+# Fucntions
+Podemos usar fuciones como:
+
+- contains( 'hello', '11' ) 
+- startsWith( 'hello', 'he' ) 
+- endsWith( 'hello', '1o' ) 
+- format( 'Hello {0} {1} {2}', 'World', '!', '!' ) 
+
+
+# Validations
+Podemos usar validaciones
+
+```yaml
+ one:
+    runs-on: ubuntu-16.04
+    if: github.event_name == 'push' # Si esta condicion es verdadera, corre
+    steps:
+      - name: Dump GitHub context
+        env:
+```
