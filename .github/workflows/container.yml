@@ -4,10 +4,12 @@ on: push
 jobs: 
   local-node:
     runs-on: ubuntu-latest
-    container: # usamos el docker de Node js
-      image: node:10.18.0-jessie
     steps:
       - uses: actions/checkout@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
