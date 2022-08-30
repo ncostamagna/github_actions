@@ -4,11 +4,6 @@ on: push
 jobs: 
   local-node:
     runs-on: ubuntu-latest
-    services:
-      mongo:
-        image: mongo
-        ports:
-          - "27017:27017"
     container: # usamos el docker de Node js
       image: node:10.18.0-jessie
     steps:
