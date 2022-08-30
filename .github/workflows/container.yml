@@ -26,13 +26,15 @@ jobs:
           pm2 start app.js
         env:
           CI: true
+      - name: pija
+        run: pm2 list    
       - name: Post a user
         run: 'curl -X POST http://localhost:3000/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
       - name: Get Users
         run: curl http://localhost:3000/api/users
       - name: puta madre
         if: always()
-        run: pm2 logs
+        run: pm2 logs --nostream 
 
 
   node-docker:
