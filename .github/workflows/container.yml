@@ -4,6 +4,11 @@ on: push
 jobs: 
   local-node:
     runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo
+        ports:
+          - "27017:27017"
     container: # usamos el docker de Node js
       image: node:10.18.0-jessie
     steps:
@@ -14,11 +19,13 @@ jobs:
           mongodb-version: 4.2
           mongodb-replica-set: test-rs
           mongodb-port: 27017
+      - name: Install PM2
+        run: npm i pm2 -g
       - name: local node test
         run: |
           cd simple-docker-nodejs-api-master
           npm install
-          node app.js
+          pm2 start app.js
       - name: Post a user
         run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
       - name: Get Users
