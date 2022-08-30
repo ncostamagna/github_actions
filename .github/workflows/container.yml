@@ -25,6 +25,11 @@ jobs:
         run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
       - name: Get Users
         run: curl http://localhost:3001/api/users
+      - name: puta madre
+        if: always()
+        run: pm2 logs
+
+
   node-docker:
     runs-on: ubuntu-latest
     services:
