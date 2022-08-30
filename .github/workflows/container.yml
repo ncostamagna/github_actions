@@ -14,11 +14,12 @@ jobs:
       - name: SHIT
         run: docker ps 
       - name: Post a user
-        run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
+        run: 'curl -X POST http://0.0.0.0:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
       - name: la concha de tu madre
         if: always()
         run: docker logs simple-docker-nodejs-api-master_app_1
       - name: Get Users
+        if: always()
         run: curl http://localhost:3001/api/users
   local-node:
     runs-on: ubuntu-latest
