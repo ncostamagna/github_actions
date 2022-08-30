@@ -14,6 +14,7 @@ jobs:
           mongodb-version: 4.2
           mongodb-replica-set: test-rs
           mongodb-port: 27017
+          mongodb-db: users
       - name: Install PM2
         run: npm i pm2 -g
       - name: local node test
@@ -21,6 +22,8 @@ jobs:
           cd simple-docker-nodejs-api-master
           npm install
           pm2 start app.js
+        env:
+          CI: true
       - name: Post a user
         run: 'curl -X POST http://localhost:3000/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
       - name: Get Users
