@@ -2,6 +2,24 @@ name: Container
 on: push
 
 jobs: 
+  local-node-2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: |
+          cd simple-docker-nodejs-api-master
+          docker-compose build
+          docker-compose up -d
+      - name: SHIT
+        run: docker ps 
+      - name: Post a user
+        run: 'curl -X POST http://localhost:3000/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
+      - name: Get Users
+        run: curl http://localhost:3000/api/users
+      - name: puta madre
+        if: always()
+        run: pm2 logs --nostream 
   local-node:
     runs-on: ubuntu-latest
     steps:
