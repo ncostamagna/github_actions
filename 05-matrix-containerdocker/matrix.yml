@@ -5,12 +5,12 @@ jobs:
   node-version:
     strategy: 
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest] 
-        node_version: [6, 8, 10]
+        os: [macos-latest, ubuntu-latest, windows-latest] # va a generar un job por cada uno
+        node_version: [6, 8, 10]  # va a generar un job por cada uno
         include: 
           - os: ubuntu-latest
             node_version: 8
-            is_ubuntu_8: "true"
+            is_ubuntu_8: "true" # solo la inserta en lo especificado arriba
         exclude:
           - os: ubuntu-latest
             node_version: 6
@@ -24,7 +24,7 @@ jobs:
         run: node -v
       - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node_version }}
+          node-version: ${{ matrix.node_version }} # usamos la env que usamos en matrix
       - name: Log node version 
         run:  | 
           node -v

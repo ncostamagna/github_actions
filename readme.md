@@ -268,3 +268,27 @@ Podemos usar validaciones
       - name: Dump GitHub context
         env:
 ```
+
+# Matrix
+Va a generar un job por cada valor
+
+```yaml
+jobs: 
+  node-version:
+    strategy: 
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest] # va a generar un job por cada uno
+        node_version: [6, 8, 10]  # va a generar un job por cada uno
+        include: 
+          - os: ubuntu-latest
+            node_version: 8
+            is_ubuntu_8: "true"
+        exclude:
+          - os: ubuntu-latest
+            node_version: 6
+          - os: macos-latest
+            node_version: 8
+    runs-on: ${{ matrix.os }} # corremos en el sistema operativo especificado en matrix
+    steps: 
+      ...
+```
