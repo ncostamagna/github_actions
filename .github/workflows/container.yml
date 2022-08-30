@@ -13,6 +13,12 @@ jobs:
       image: node:10.18.0-jessie
     steps:
       - uses: actions/checkout@v1
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+          mongodb-replica-set: test-rs
+          mongodb-port: 27017
       - name: local node test
         run: |
           cd simple-docker-nodejs-api-master
