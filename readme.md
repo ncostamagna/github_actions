@@ -200,6 +200,50 @@ Tenemos variables por defecto como: HOME, GITHUB_WORKFLOW, GITHUB_ACTION, GITHUB
 
 ## Secrets
 Para crear variables secretas vamos a: 
-- **Settings > Environments > New environment > Add secret** 
+- **Settings > Secrets > New Repository Secret** 
 <br />
 Creamos los secrets que necesitamos, para pasar contraseñas y datos sensibles
+
+# Expressions
+
+POdemos usar expresiones de la siguiente manera
+
+```yaml
+my-value: ${{2 < 1}}
+```
+
+podemos usar objetos del contexto como secrets, que contienen informacion del workflow
+
+```yaml
+my-secret: ${{secret.PASSPHRASE}}
+```
+
+Existen varios contextos que podemos usar para ver informacion
+
+```yml
+steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+```
